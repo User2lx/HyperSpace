@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hyper Space - Animation Update</title>
+  <title>‎‧₊˚✩Hyper Space✩˚₊‧</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
   <style>
     html, body {
@@ -88,9 +88,58 @@
       opacity: 0;
       transition: opacity 1s ease-in-out;
     }
+
+    #termsPopup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.95);
+      color: #00FFFF;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      padding: 20px;
+      text-align: center;
+    }
+
+    #termsPopup textarea {
+      width: 80%;
+      height: 200px;
+      background: black;
+      border: 2px solid #00FFFF;
+      color: #00FFFF;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.6em;
+      margin-bottom: 20px;
+      padding: 10px;
+    }
+
+    #agreeBtn {
+      padding: 10px 20px;
+      font-family: 'Press Start 2P', cursive;
+      background: black;
+      color: #00FFFF;
+      border: 2px solid #00FFFF;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
+
+<div id="termsPopup">
+  <textarea readonly>
+Terms of Use:
+
+This site is intended for educational purposes only. By proceeding, you agree that the creator of this site, "Unplugged," is not responsible for any school-related consequences, including but not limited to suspensions, expulsions, or other disciplinary actions. Use at your own risk.
+
+Click "I Agree" to continue.
+  </textarea>
+  <button id="agreeBtn">I AGREE</button>
+</div>
 
 <canvas id="bg"></canvas>
 <div class="header" id="finalHeader" style="visibility: hidden">Hyper Space</div>
@@ -217,7 +266,11 @@
   window.addEventListener('resize', resizeCanvas);
   resizeCanvas();
   draw();
-  launchSequence();
+
+  document.getElementById('agreeBtn').addEventListener('click', () => {
+    document.getElementById('termsPopup').style.display = 'none';
+    launchSequence();
+  });
 </script>
 
 </body>
