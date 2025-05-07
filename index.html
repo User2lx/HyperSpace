@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hyper Space - Animation Update</title>
+  <title>☆ Hyper Space ☆ - Animation Update</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
   <style>
     html, body {
@@ -142,9 +142,9 @@ Click "I Agree" to continue.
 </div>
 
 <canvas id="bg"></canvas>
-<div class="header" id="finalHeader" style="visibility: hidden">Hyper Space</div>
+<div class="header" id="finalHeader" style="visibility: hidden">☆ Hyper Space ☆</div>
 <div class="rocket" id="rocket">🚀</div>
-<div id="titleIntro">Hyper Space</div>
+<div id="titleIntro">☆ Hyper Space ☆</div>
 <div class="button-container" id="buttonContainer">
   <button onclick="window.open('https://worldunion.info')">Waves</button>
   <button onclick="window.open('https://foryou.werder.li')">Utopia</button>
@@ -263,22 +263,25 @@ Click "I Agree" to continue.
       finalHeader.style.visibility = 'visible';
       buttonContainer.style.opacity = 1;
 
-      buttons.forEach((btn, i) => {
+      buttons.forEach((button, index) => {
         setTimeout(() => {
-          btn.style.opacity = 1;
-        }, i * 300);
+          button.style.opacity = 1;
+        }, 100 * index);
       });
-    }, 4000);
+    }, 3500);
   }
 
   window.addEventListener('resize', resizeCanvas);
-  resizeCanvas();
-  draw();
+  window.addEventListener('load', () => {
+    resizeCanvas();
+    setTimeout(launchSequence, 1000);
+  });
 
   document.getElementById('agreeBtn').addEventListener('click', () => {
     document.getElementById('termsPopup').style.display = 'none';
-    launchSequence();
   });
+
+  draw();
 </script>
 
 </body>
