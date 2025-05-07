@@ -1,168 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hyper Space</title>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"> <!-- Pixel Font -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hyper Space - Animation Update</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
   <style>
-    body {
-      font-family: 'Press Start 2P', cursive;
+    html, body {
       margin: 0;
       padding: 0;
+      height: 100%;
+      background-color: #000;
+      font-family: 'Press Start 2P', cursive;
+      color: #00FFFF;
       overflow: hidden;
-      background-color: black;
-      color: #00FFFF; /* Default text color */
     }
 
-    /* Background */
-    .space-bg {
+    canvas {
       position: absolute;
-      width: 100%;
-      height: 100%;
       top: 0;
       left: 0;
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1));
       z-index: -1;
     }
 
-    /* Space animation text */
-    .space-animate {
+    .header {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 3em;
-      color: #00FFFF;
-      text-align: center;
-      animation: fadeInOut 5s infinite;
-    }
-
-    @keyframes fadeInOut {
-      0% { opacity: 0; }
-      50% { opacity: 1; }
-      100% { opacity: 0; }
-    }
-
-    /* Modal background */
-    #termsModal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
+      top: 20px;
       width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      z-index: 9999;
-    }
-
-    /* Modal content */
-    #modalContent {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: white;
-      padding: 20px;
-      max-width: 600px;
-      width: 90%;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-    }
-
-    #modalContent h2 {
-      font-size: 1.5em;
-    }
-
-    #modalContent p {
-      margin-bottom: 20px;
-      font-size: 1em;
-    }
-
-    #modalContent .terms-button {
-      margin: 10px;
-      padding: 10px 20px;
-      background-color: #333;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    #modalContent .terms-button:hover {
-      background-color: #555;
-    }
-
-    #acceptButton {
-      background-color: #4CAF50;
-    }
-
-    #declineButton {
-      background-color: #F44336;
-    }
-
-    /* Main content */
-    #mainContent {
-      display: none;
       text-align: center;
-    }
-
-    /* Button Styles */
-    .button-container {
-      display: none;
-      text-align: center;
-      margin-top: 40px;
-    }
-
-    .button-container button {
-      padding: 15px 30px;
-      margin: 10px;
-      background-color: #333;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
       font-size: 1.2em;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
-      transition: transform 0.3s ease;
+      color: #00FFFF;
+      text-shadow: 0 0 10px #00FFFF;
+      z-index: 10;
     }
 
-    .button-container button:hover {
-      transform: scale(1.1);
-      background-color: #555;
-    }
-
-    /* LED Effect on Hover */
-    .button-container button:before {
-      content: '';
+    #titleIntro {
       position: absolute;
       top: 50%;
       left: 50%;
-      width: 300%;
-      height: 300%;
-      background: rgba(0, 255, 255, 0.2);
-      transition: all 0.5s ease;
-      transform: translate(-50%, -50%) rotate(45deg);
-      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(2);
+      font-size: 2em;
       opacity: 0;
+      color: #00FFFF;
+      text-shadow: 0 0 20px #00FFFF;
+      font-family: 'Press Start 2P', cursive;
+      z-index: 5;
+      transition: all 1.5s ease-in-out;
     }
 
-    .button-container button:hover:before {
-      opacity: 1;
-      width: 400%;
-      height: 400%;
-    }
-
-    /* Rocket Animation */
     .rocket {
+      visibility: hidden;
+      opacity: 0;
       position: absolute;
       top: 50%;
       left: -100px;
       transform: translateY(-50%);
-      animation: rocketMove 6s linear forwards;
       font-size: 50px;
+      z-index: 10;
+      text-shadow: 0 0 10px #00FFFF;
     }
 
     @keyframes rocketMove {
@@ -170,87 +65,159 @@
       100% { left: 100%; }
     }
 
-    /* Terms of Use Modal */
-    .modal-content {
-      padding: 20px;
-      color: white;
-      background: rgba(0, 0, 0, 0.8);
-      border-radius: 10px;
+    .button-container {
+      position: absolute;
+      top: 80px;
+      width: 100%;
+      text-align: center;
+      z-index: 10;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .button-container button {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.8em;
+      margin: 10px;
+      padding: 10px 20px;
+      background-color: #000;
+      border: 2px solid #00FFFF;
+      color: #00FFFF;
+      cursor: pointer;
+      text-shadow: 0 0 5px #00FFFF;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
     }
   </style>
 </head>
 <body>
 
-<!-- Hyper Space Background -->
-<div class="space-bg"></div>
-<div class="space-animate">Welcome to the Hyper Space</div>
-
-<!-- Rocket Animation -->
-<div class="rocket">🚀</div>
-
-<!-- Modal (Terms of Use) -->
-<div id="termsModal">
-  <div id="modalContent">
-    <h2>Terms of Use</h2>
-    <p>By accessing and using this website, you agree to comply with and be bound by the following Terms of Use. Please read them carefully. If you do not agree to these terms, you should not use the website.</p>
-    
-    <h3>Account Suspension & Extensions</h3>
-    <p>We are not responsible for any suspensions, extensions, or issues related to your account. The website, services, and any third-party integrations are provided "as is," and we cannot guarantee access at all times or prevent any interruptions in service.</p>
-
-    <h3>Liability Disclaimer</h3>
-    <p>We make no representations or warranties regarding the accuracy, completeness, or reliability of the information provided on this website. You agree that we are not liable for any damages, including but not limited to losses, suspensions, or disruptions of service, arising from the use of this website.</p>
-
-    <h3>Important Disclaimer</h3>
-    <p>We are not responsible for any actions taken by third-party services, and we are not liable for any suspensions, bans, or issues related to the use of external services or integrations with this website.</p>
-
-    <button id="acceptButton" class="terms-button">I Agree</button>
-    <button id="declineButton" class="terms-button">I Decline</button>
-  </div>
+<canvas id="bg"></canvas>
+<div class="header" id="finalHeader" style="visibility: hidden">Hyper Space</div>
+<div class="rocket" id="rocket">🚀</div>
+<div id="titleIntro">Hyper Space</div>
+<div class="button-container" id="buttonContainer">
+  <button onclick="window.open('https://worldunion.info')">Waves</button>
+  <button onclick="window.open('https://foryou.werder.li')">Utopia</button>
+  <button onclick="window.open('https://login.i-ready.com.de')">Meximath</button>
+  <button onclick="window.open('https://001.skrt.f5.si')">Shadow</button>
+  <button onclick="window.open('https://2he1he.atf.com.np')">Interstellar</button>
+  <button onclick="window.open('https://1346.lol')">Terminal</button>
+  <button onclick="window.open('https://science.aideds.org')">FalconLink</button>
+  <button onclick="window.open('https://holyunblocker.org/rammerhead')">Rammerhead</button>
 </div>
-
-<!-- Main content (buttons, etc.) -->
-<div id="mainContent">
-  <h1>Welcome to Your Hyper Space Website!</h1>
-  <p>Now that you have agreed to the terms, you can access all the content.</p>
-
-  <!-- Buttons Container -->
-  <div class="button-container" id="buttonContainer">
-    <button onclick="window.location.href='https://worldunion.info'">Waves (Method 1)</button>
-    <button onclick="window.location.href='https://foryou.werder.li'">Utopia (Method 2)</button>
-    <button onclick="window.location.href='https://login.i-ready.com.de'">Meximath (Method 3)</button>
-    <button onclick="window.location.href='https://001.skrt.f5.si'">Shadow (Method 4)</button>
-    <button onclick="window.location.href='https://2he1he.atf.com.np'">Interstellar (Method 5)</button>
-    <button onclick="window.location.href='https://1346.lol'">Terminal (Method 6)</button>
-    <button onclick="window.location.href='https://science.aideds.org'">FalconLink (Method 7)</button>
-    <button onclick="window.location.href='https://holyunblocker.org/rammerhead'">Rammerhead (Method 8)</button>
-  </div>
-</div>
-
-<!-- Footer -->
-<footer>
-  <p>&copy; 2025 Your Website Name. All rights reserved.</p>
-</footer>
 
 <script>
-  // Show the terms modal on page load
-  window.onload = function() {
-    document.getElementById("termsModal").style.display = "block";
-  };
+  const canvas = document.getElementById('bg');
+  const ctx = canvas.getContext('2d');
+  let width, height;
 
-  // Accept the terms and show the main content, along with buttons
-  document.getElementById("acceptButton").onclick = function() {
-    document.getElementById("termsModal").style.display = "none";
-    document.getElementById("mainContent").style.display = "block";
-    document.getElementById("buttonContainer").style.display = "block";  // Show buttons after terms are accepted
-  };
+  const dots = [];
+  const hills = [];
 
-  // Decline the terms and redirect or close the page
-  document.getElementById("declineButton").onclick = function() {
-    alert("You must accept the terms to continue.");
-    // Optionally, redirect or close the page if declined
-    // window.location.href = "https://www.example.com"; // Redirect to another page
-    // window.close(); // Close the browser window
-  };
+  function resizeCanvas() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+    generateHills();
+  }
+
+  function generateHills() {
+    hills.length = 0;
+    for (let x = 0; x < width; x += 20) {
+      const y = height - 50 - Math.sin(x * 0.01) * 40 - Math.random() * 10;
+      hills.push({ x, y });
+    }
+  }
+
+  for (let i = 0; i < 80; i++) {
+    dots.push({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5
+    });
+  }
+
+  function draw() {
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, width, height);
+
+    ctx.strokeStyle = '#00ffff';
+    ctx.beginPath();
+    ctx.moveTo(0, height);
+    hills.forEach(p => ctx.lineTo(p.x, p.y));
+    ctx.lineTo(width, height);
+    ctx.closePath();
+    ctx.stroke();
+
+    dots.forEach(dot => {
+      dot.x += dot.vx;
+      dot.y += dot.vy;
+      if (dot.x < 0 || dot.x > width) dot.vx *= -1;
+      if (dot.y < 0 || dot.y > height) dot.vy *= -1;
+
+      ctx.beginPath();
+      ctx.arc(dot.x, dot.y, 2, 0, Math.PI * 2);
+      ctx.fillStyle = '#00ffff';
+      ctx.fill();
+    });
+
+    for (let i = 0; i < dots.length; i++) {
+      for (let j = i + 1; j < dots.length; j++) {
+        const dx = dots[i].x - dots[j].x;
+        const dy = dots[i].y - dots[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 100) {
+          ctx.strokeStyle = 'rgba(0, 255, 255, 0.1)';
+          ctx.beginPath();
+          ctx.moveTo(dots[i].x, dots[i].y);
+          ctx.lineTo(dots[j].x, dots[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  const rocket = document.getElementById('rocket');
+  const titleIntro = document.getElementById('titleIntro');
+  const finalHeader = document.getElementById('finalHeader');
+  const buttonContainer = document.getElementById('buttonContainer');
+  const buttons = buttonContainer.querySelectorAll('button');
+
+  function launchSequence() {
+    rocket.style.visibility = 'visible';
+    rocket.style.opacity = 1;
+    rocket.style.animation = 'rocketMove 4s linear forwards';
+
+    setTimeout(() => {
+      titleIntro.style.opacity = 1;
+    }, 500);
+
+    setTimeout(() => {
+      titleIntro.style.transform = 'translate(-50%, -50%) scale(0.5)';
+      titleIntro.style.top = '20px';
+      titleIntro.style.left = '50%';
+    }, 2500);
+
+    setTimeout(() => {
+      titleIntro.style.display = 'none';
+      finalHeader.style.visibility = 'visible';
+      buttonContainer.style.opacity = 1;
+
+      buttons.forEach((btn, i) => {
+        setTimeout(() => {
+          btn.style.opacity = 1;
+        }, i * 300);
+      });
+    }, 4000);
+  }
+
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+  draw();
+  launchSequence();
 </script>
 
 </body>
