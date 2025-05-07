@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>‎‧₊˚✩Hyper Space✩˚₊‧</title>
+  <title>Hyper Space - Animation Update</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
   <style>
     html, body {
@@ -156,6 +156,10 @@ Click "I Agree" to continue.
   <button onclick="window.open('https://holyunblocker.org/rammerhead')">Rammerhead</button>
 </div>
 
+<audio id="startSound" src="start.mp3"></audio>
+<audio id="endSound" src="end.mp3"></audio>
+<audio id="bgMusic" src="background.mp3" loop></audio>
+
 <script>
   const canvas = document.getElementById('bg');
   const ctx = canvas.getContext('2d');
@@ -236,6 +240,9 @@ Click "I Agree" to continue.
   const buttons = buttonContainer.querySelectorAll('button');
 
   function launchSequence() {
+    document.getElementById('bgMusic').play();
+    document.getElementById('startSound').play();
+
     rocket.style.visibility = 'visible';
     rocket.style.opacity = 1;
     rocket.style.animation = 'rocketMove 4s linear forwards';
@@ -251,6 +258,7 @@ Click "I Agree" to continue.
     }, 2500);
 
     setTimeout(() => {
+      document.getElementById('endSound').play();
       titleIntro.style.display = 'none';
       finalHeader.style.visibility = 'visible';
       buttonContainer.style.opacity = 1;
