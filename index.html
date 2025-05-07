@@ -1,6 +1,3 @@
- <a href='http://www.freevisitorcounters.com'>freevisitorcounters's Website</a> <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=a560fbefbdb3a344a429fc2bc74a4c9bc3e05e5f'></script>
-<script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1337276/t/10"></script>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -129,6 +126,23 @@
       border: 2px solid #00FFFF;
       cursor: pointer;
     }
+
+    #visitCounter {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      color: #00FFFF;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.8em;
+      text-shadow: 0 0 10px #00FFFF;
+      opacity: 0;
+      animation: fadeIn 2s forwards;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
   </style>
 </head>
 <body>
@@ -157,6 +171,13 @@ Click "I Agree" to continue.
   <button onclick="window.open('https://1346.lol')">Terminal</button>
   <button onclick="window.open('https://science.aideds.org')">FalconLink</button>
   <button onclick="window.open('https://holyunblocker.org/rammerhead')">Rammerhead</button>
+</div>
+
+<!-- Visitor Counter -->
+<div id="visitCounter">
+  <a href="http://www.freevisitorcounters.com">freevisitorcounters's Website</a>
+  <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=a560fbefbdb3a344a429fc2bc74a4c9bc3e05e5f'></script>
+  <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1337276/t/10"></script>
 </div>
 
 <audio id="startSound" src="start.mp3"></audio>
