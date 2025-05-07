@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>☆ Hyper Space ☆ - Animation Update</title>
+  <title>✦✧✦ Hyper Space ✦✧✦</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
   <style>
     html, body {
@@ -142,9 +142,9 @@ Click "I Agree" to continue.
 </div>
 
 <canvas id="bg"></canvas>
-<div class="header" id="finalHeader" style="visibility: hidden">☆ Hyper Space ☆</div>
+<div class="header" id="finalHeader" style="visibility: hidden">✦✧✦ Hyper Space ✦✧✦</div>
 <div class="rocket" id="rocket">🚀</div>
-<div id="titleIntro">☆ Hyper Space ☆</div>
+<div id="titleIntro">✦✧✦ Hyper Space ✦✧✦</div>
 <div class="button-container" id="buttonContainer">
   <button onclick="window.open('https://worldunion.info')">Waves</button>
   <button onclick="window.open('https://foryou.werder.li')">Utopia</button>
@@ -164,9 +164,7 @@ Click "I Agree" to continue.
   const canvas = document.getElementById('bg');
   const ctx = canvas.getContext('2d');
   let width, height;
-
-  const dots = [];
-  const hills = [];
+  const dots = [], hills = [];
 
   function resizeCanvas() {
     width = canvas.width = window.innerWidth;
@@ -208,7 +206,6 @@ Click "I Agree" to continue.
       dot.y += dot.vy;
       if (dot.x < 0 || dot.x > width) dot.vx *= -1;
       if (dot.y < 0 || dot.y > height) dot.vy *= -1;
-
       ctx.beginPath();
       ctx.arc(dot.x, dot.y, 2, 0, Math.PI * 2);
       ctx.fillStyle = '#00ffff';
@@ -229,7 +226,6 @@ Click "I Agree" to continue.
         }
       }
     }
-
     requestAnimationFrame(draw);
   }
 
@@ -262,26 +258,20 @@ Click "I Agree" to continue.
       titleIntro.style.display = 'none';
       finalHeader.style.visibility = 'visible';
       buttonContainer.style.opacity = 1;
-
-      buttons.forEach((button, index) => {
+      buttons.forEach((btn, i) => {
         setTimeout(() => {
-          button.style.opacity = 1;
-        }, 100 * index);
+          btn.style.opacity = 1;
+        }, i * 300);
       });
-    }, 3500);
+    }, 4000);
   }
-
-  window.addEventListener('resize', resizeCanvas);
-  window.addEventListener('load', () => {
-    resizeCanvas();
-    setTimeout(launchSequence, 1000);
-  });
 
   document.getElementById('agreeBtn').addEventListener('click', () => {
     document.getElementById('termsPopup').style.display = 'none';
+    resizeCanvas();
+    draw();
+    launchSequence();
   });
-
-  draw();
 </script>
 
 </body>
